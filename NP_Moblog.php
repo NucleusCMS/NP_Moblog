@@ -630,7 +630,7 @@ class NP_Moblog extends NucleusPlugin {
 		}
 		
 		// Subject: 空の場合
-		if( ! $subject = trim(htmlspecialchars($subject, ENT_QUOTES)) ){
+		if( ! $subject = trim(htmlspecialchars($subject, ENT_QUOTES, _CHARSET)) ){
 			$subject = $this->nosubject;
 		}
 
