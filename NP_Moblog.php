@@ -100,7 +100,7 @@ class NP_Moblog extends NucleusPlugin {
 				
 				$blogs = Array();
 				$res = sql_query('SELECT bnumber, bname FROM '.sql_table('blog'));
-				while( $o = mysql_fetch_object($res) ){
+				while( $o = sql_fetch_object($res) ){
 					 if( $m->isTeamMember($o->bnumber) ){
 						$blogs[$o->bnumber] = $o->bname;
 					 }
@@ -109,8 +109,8 @@ class NP_Moblog extends NucleusPlugin {
 				$idandcatTypeInfo = '';
 				foreach($blogs as $blogid => $blogname){
 					$res = sql_query('SELECT catid, cname FROM '.sql_table('category').' WHERE cblog='.$blogid);
-					if( @mysql_num_rows($res) > 0) {
-						while( $o = mysql_fetch_object($res) ){
+					if( @sql_num_rows($res) > 0) {
+						while( $o = sql_fetch_object($res) ){
 							if($idandcatTypeInfo)
 								$idandcatTypeInfo .= '|';
 							$o->cname = strtr($o->cname, $trimChar);
@@ -695,7 +695,8 @@ class NP_Moblog extends NucleusPlugin {
 	}
 	
 	function _decodeMultiPart($parts, &$texts, &$fileNames){
-		foreach($parts as $part){			switch ( strtolower( $part->ctype_primary )){
+		foreach($parts as $part){
+			switch ( strtolower( $part->ctype_primary )){
 				// multipart
 				case 'multipart':
 					$this->_decodeMultiPart($part->parts, $texts, $fileNames);
